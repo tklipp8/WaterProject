@@ -68,3 +68,4 @@ C:\Users\turne\Desktop\Winter 2025\413\WaterProject\backend\WaterProject.API\obj
 C:\Users\turne\Desktop\Winter 2025\413\WaterProject\backend\WaterProject.API\obj\Debug\net8.0\WaterProject.API.pdb
 C:\Users\turne\Desktop\Winter 2025\413\WaterProject\backend\WaterProject.API\obj\Debug\net8.0\WaterProject.API.genruntimeconfig.cache
 C:\Users\turne\Desktop\Winter 2025\413\WaterProject\backend\WaterProject.API\obj\Debug\net8.0\ref\WaterProject.API.dll
+C:\Users\turne\Desktop\Winter 2025\413\WaterProject\backend\WaterProject.API\obj\Debug\net8.0\WaterProject.API.sourcelink.json
