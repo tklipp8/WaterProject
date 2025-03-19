@@ -10,7 +10,7 @@ function ProjectList() {
         const fetchProjects = async () => {
             const response = await fetch('https://localhost:5000/Water/AllProjects');
             const data = await response.json();
-            setProjects(data);
+            setProjects(data); 
         };
 
         fetchProjects();
