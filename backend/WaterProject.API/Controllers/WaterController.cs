@@ -26,28 +26,33 @@ namespace WaterProject.API.Controllers
             });
 
             var query = _waterContext.Projects.AsQueryable();
-
-            if (projectTypes != null)
+            
+            // Log the total count before filtering
+            Console.WriteLine($"Total projects before filtering: {query.Count()}");
+            
+            if (projectTypes != null && projectTypes.Count > 0)
             {
+                Console.WriteLine($"Filtering by project types: {string.Join(", ", projectTypes)}");
                 query = query.Where(p => projectTypes.Contains(p.ProjectType));
             }
 
             var totalNumProjects = query.Count();
+            Console.WriteLine($"Total projects after filtering: {totalNumProjects}");
 
-            var something = query
+            var projects = query
                 .Skip((pageNum-1) * pageSize)
                 .Take(pageSize)
                 .ToList();
+            
+            Console.WriteLine($"Returning {projects.Count} projects for page {pageNum} with page size {pageSize}");
 
-
-
-            var someObject = new
+            var result = new
             {
-                Projects = something,
+                Projects = projects,
                 TotalNumProjects = totalNumProjects
             };
 
-            return Ok(someObject);
+            return Ok(result);
         }
 
         [HttpGet("GetProjectTypes")]
@@ -103,6 +108,12 @@ namespace WaterProject.API.Controllers
             _waterContext.SaveChanges();
 
             return NoContent();
+        }
+
+        [HttpGet("Test")]
+        public IActionResult Test()
+        {
+            return Ok(new { message = "API is working", timestamp = DateTime.Now });
         }
     }
 }
