@@ -12,10 +12,8 @@ namespace WaterProject.API.Controllers
         public WaterController(WaterDbContext temp) => _waterContext = temp;
 
         [HttpGet("AllProjects")]
-        public IActionResult GetProjects(int pageSize = 10, int pageNum = 1, [FromQuery] List<string>? projectTypes = null)
+        public IActionResult GetProjects(int pageSize, int pageNum = 1, [FromQuery] List<string>? projectTypes = null)
         {
-            Console.WriteLine($"GetProjects called with pageSize={pageSize}, pageNum={pageNum}, projectTypes={string.Join(",", projectTypes ?? new List<string>())}");
-            
             string? favProjType = Request.Cookies["FavoriteProjectType"];
             Console.WriteLine("~~~~~~~~~~COOKIE~~~~~~~~~~\n" + favProjType);
 
@@ -30,8 +28,7 @@ namespace WaterProject.API.Controllers
             var query = _waterContext.Projects.AsQueryable();
             
             // Log the total count before filtering
-            var totalBeforeFilter = query.Count();
-            Console.WriteLine($"Total projects before filtering: {totalBeforeFilter}");
+            Console.WriteLine($"Total projects before filtering: {query.Count()}");
             
             if (projectTypes != null && projectTypes.Count > 0)
             {
@@ -42,9 +39,6 @@ namespace WaterProject.API.Controllers
             var totalNumProjects = query.Count();
             Console.WriteLine($"Total projects after filtering: {totalNumProjects}");
 
-            // Ensure pageSize is at least 1
-            pageSize = Math.Max(1, pageSize);
-            
             var projects = query
                 .Skip((pageNum-1) * pageSize)
                 .Take(pageSize)
